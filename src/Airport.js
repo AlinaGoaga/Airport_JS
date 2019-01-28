@@ -7,13 +7,17 @@ Airport.prototype.land = function(plane) {
   if (this.weather.isStormy() === false) {
     this.planesQueue.push(plane);
   } else {
-   throw new Error('cannot land plane: weather is stormy');
- };
+    throw new Error('cannot land plane: weather is stormy');
+  };
 };
 
 Airport.prototype.takeoff = function(plane) {
-  var index = this.planesQueue.indexOf(plane);
-  this.planesQueue.splice(index,1);
+  if (this.weather.isStormy() === false) {
+    var index = this.planesQueue.indexOf(plane);
+    this.planesQueue.splice(index,1);
+  } else {
+    throw new Error('plane can not take off: weather is stormy');
+  };
 };
 
 Airport.prototype.planesFlightCodes = function() {

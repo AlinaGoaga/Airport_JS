@@ -1,6 +1,5 @@
 describe("AirportLogic", function() {
   var airport;
-  var plane;
 
   beforeEach(function() {
     weather = new WeatherForecast();
@@ -37,10 +36,20 @@ describe("AirportLogic", function() {
   // To ensure safety
   // I want to prevent landing when weather is stormy
 
+  // As an air traffic controller
+  // To ensure safety
+  // I want to prevent take offs when weather is stormy
+
   describe('when the weather is stormy', function() {
+
     it('prevents landing', function() {
       spyOn(weather, 'isStormy').and.returnValue(true);
       expect(function() { airport.land(plane1) }).toThrowError('cannot land plane: weather is stormy');
+    });
+
+    it('prevents take offs', function() {
+      spyOn(weather, 'isStormy').and.returnValue(true);
+      expect(function() { airport.takeoff(plane1) }).toThrowError('plane can not take off: weather is stormy');
     });
 
   });
